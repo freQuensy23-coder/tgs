@@ -33,10 +33,8 @@ func cmdSend(ctx context.Context, targetName string, path string) error {
 		}
 		defer os.Remove(zipPath)
 
-		// Rename temp zip to <folder>.zip for a nicer filename in Telegram
 		namedZip := filepath.Join(filepath.Dir(zipPath), filepath.Base(path)+".zip")
 		if err := os.Rename(zipPath, namedZip); err != nil {
-			// Rename can fail across filesystems; just use temp path
 			namedZip = zipPath
 		} else {
 			defer os.Remove(namedZip)

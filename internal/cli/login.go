@@ -18,6 +18,11 @@ import (
 	"github.com/freQuensy23-coder/tgs/internal/sender"
 )
 
+const (
+	defaultAppID   = 1308644
+	defaultAppHash = "df0215899cd03b8c63cd70b7ed01b3ef"
+)
+
 func cmdLogin(ctx context.Context, mode string) error {
 	switch mode {
 	case "bot":
@@ -70,27 +75,15 @@ func loginBot(ctx context.Context) error {
 func loginUser(ctx context.Context) error {
 	scanner := bufio.NewScanner(os.Stdin)
 
-	fmt.Print("API ID (from my.telegram.org): ")
-	scanner.Scan()
-	appIDStr := strings.TrimSpace(scanner.Text())
-	appID, err := strconv.Atoi(appIDStr)
-	if err != nil {
-		return fmt.Errorf("invalid API ID: %w", err)
-	}
-
-	fmt.Print("API Hash (from my.telegram.org): ")
-	scanner.Scan()
-	appHash := strings.TrimSpace(scanner.Text())
-	if appHash == "" {
-		return fmt.Errorf("API hash cannot be empty")
-	}
-
 	fmt.Print("Phone number (with country code, e.g. +1234567890): ")
 	scanner.Scan()
 	phone := strings.TrimSpace(scanner.Text())
 	if phone == "" {
 		return fmt.Errorf("phone cannot be empty")
 	}
+
+	appID := defaultAppID
+	appHash := defaultAppHash
 
 	cfg := &config.Config{
 		Mode:    "user",
@@ -100,6 +93,8 @@ func loginUser(ctx context.Context) error {
 	}
 
 	sessionPath := cfg.SessionPath()
+
+	os.Remove(sessionPath)
 
 	client := telegram.NewClient(appID, appHash, telegram.Options{
 		SessionStorage: &session.FileStorage{Path: sessionPath},
@@ -112,8 +107,9 @@ func loginUser(ctx context.Context) error {
 	)
 
 	var displayName string
-	err = client.Run(ctx, func(ctx context.Context) error {
+	err := client.Run(ctx, func(ctx context.Context) error {
 		if err := client.Auth().IfNecessary(ctx, flow); err != nil {
+			os.Remove(sessionPath)
 			return fmt.Errorf("auth: %w", err)
 		}
 
@@ -137,7 +133,6 @@ func loginUser(ctx context.Context) error {
 	return nil
 }
 
-// terminalAuth implements auth.UserAuthenticator for interactive terminal login.
 type terminalAuth struct {
 	phone   string
 	scanner *bufio.Scanner

@@ -10,11 +10,9 @@ import (
 type Config struct {
 	Mode string `json:"mode"` // "bot" or "user"
 
-	// Bot mode
 	BotToken    string `json:"bot_token,omitempty"`
 	OwnerChatID int64  `json:"owner_chat_id,omitempty"`
 
-	// User mode
 	AppID   int    `json:"app_id,omitempty"`
 	AppHash string `json:"app_hash,omitempty"`
 	Phone   string `json:"phone,omitempty"`

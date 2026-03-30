@@ -42,7 +42,7 @@ Download from [Releases](https://github.com/freQuensy23-coder/tgs/releases).
 tgs login user
 ```
 
-Prompts for API ID & Hash from [my.telegram.org](https://my.telegram.org), phone number, auth code, and optional 2FA. Supports Saved Messages, dialog search, files up to 2 GB.
+Prompts for phone number, auth code, and optional 2FA. Supports Saved Messages, dialog search, files up to 2 GB.
 
 ### As bot
 

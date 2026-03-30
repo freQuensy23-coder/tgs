@@ -122,14 +122,12 @@ func (u *UserSender) Close() error {
 }
 
 func (u *UserSender) resolveTarget(ctx context.Context, sender *message.Sender, target Target) (*message.RequestBuilder, error) {
-	// First try to find in top 50 dialogs
 	if req, found, err := u.findInDialogs(ctx, sender, target.Name); err != nil {
 		return nil, err
 	} else if found {
 		return req, nil
 	}
 
-	// Fallback to username resolve
 	name := target.Name
 	if !strings.HasPrefix(name, "@") {
 		name = "@" + name

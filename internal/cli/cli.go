@@ -12,7 +12,6 @@ func Run(ctx context.Context, args []string) error {
 		return nil
 	}
 
-	// Handle login subcommand
 	if args[0] == "login" {
 		if len(args) < 2 {
 			return fmt.Errorf("usage: tgs login bot|user")
@@ -20,7 +19,6 @@ func Run(ctx context.Context, args []string) error {
 		return cmdLogin(ctx, args[1])
 	}
 
-	// Handle send: 1 arg = path (send to self), 2 args = target + path
 	switch len(args) {
 	case 1:
 		path := args[0]

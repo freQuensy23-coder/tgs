@@ -99,7 +99,6 @@ func (b *BotSender) sendDocument(ctx context.Context, chatID int64, filePath str
 	}
 	defer file.Close()
 
-	// Stream multipart via io.Pipe to avoid buffering large files
 	pr, pw := io.Pipe()
 	writer := multipart.NewWriter(pw)
 
@@ -131,7 +130,6 @@ func (b *BotSender) sendDocument(ctx context.Context, chatID int64, filePath str
 
 	for attempt := 0; attempt < maxRetries; attempt++ {
 		if attempt > 0 {
-			// Re-open file and re-create pipe for retry
 			file.Close()
 			file, err = os.Open(filePath)
 			if err != nil {
@@ -141,7 +139,6 @@ func (b *BotSender) sendDocument(ctx context.Context, chatID int64, filePath str
 
 			pr, pw = io.Pipe()
 			retryWriter := multipart.NewWriter(pw)
-			// Must use same boundary? No, new request. But we need same content type.
 			writer = retryWriter
 			go func() {
 				var writeErr error
@@ -250,7 +247,6 @@ func (b *BotSender) apiCall(ctx context.Context, method, contentType string, bod
 	return nil, fmt.Errorf("max retries exceeded")
 }
 
-// ValidateToken checks if the bot token is valid by calling getMe.
 func ValidateToken(ctx context.Context, token string) (string, error) {
 	client := &http.Client{Timeout: 10 * time.Second}
 	url := botAPIBase + token + "/getMe"
@@ -287,7 +283,6 @@ func ValidateToken(ctx context.Context, token string) (string, error) {
 	return fmt.Sprintf("%s (@%s)", bot.FirstName, bot.Username), nil
 }
 
-// readerAt wraps a byte slice to implement io.ReaderAt.
 type readerAt []byte
 
 func (r readerAt) ReadAt(p []byte, off int64) (int, error) {

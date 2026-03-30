@@ -58,8 +58,6 @@ func shouldExclude(name string, isDir bool) bool {
 	return false
 }
 
-// CreateZip creates a zip archive from srcDir, excluding common junk files.
-// Returns the path to a temporary zip file. Caller must remove it.
 func CreateZip(srcDir string) (string, error) {
 	srcDir, err := filepath.Abs(srcDir)
 	if err != nil {
@@ -92,7 +90,6 @@ func CreateZip(srcDir string) (string, error) {
 			return nil
 		}
 
-		// Only include regular files
 		if !d.Type().IsRegular() {
 			return nil
 		}
@@ -145,7 +142,6 @@ func CreateZip(srcDir string) (string, error) {
 func mustFileInfo(d os.DirEntry) os.FileInfo {
 	info, err := d.Info()
 	if err != nil {
-		// Fallback: shouldn't happen since we just walked to this entry
 		panic(fmt.Sprintf("file info: %v", err))
 	}
 	return info
