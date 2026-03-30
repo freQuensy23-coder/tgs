@@ -14,8 +14,8 @@ import (
 	"github.com/gotd/td/tg"
 	"go.uber.org/zap"
 
-	"github.com/mametyev/tgs/internal/config"
-	"github.com/mametyev/tgs/internal/sender"
+	"github.com/freQuensy23-coder/tgs/internal/config"
+	"github.com/freQuensy23-coder/tgs/internal/sender"
 )
 
 func cmdLogin(ctx context.Context, mode string) error {

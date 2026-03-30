@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/mametyev/tgs/internal/config"
+	"github.com/freQuensy23-coder/tgs/internal/config"
 )
 
 // Target represents the destination chat. Empty Name means Saved Messages / self.

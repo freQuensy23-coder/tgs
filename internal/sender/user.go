@@ -16,7 +16,7 @@ import (
 	"github.com/gotd/td/tgerr"
 	"go.uber.org/zap"
 
-	"github.com/mametyev/tgs/internal/config"
+	"github.com/freQuensy23-coder/tgs/internal/config"
 )
 
 type UserSender struct {

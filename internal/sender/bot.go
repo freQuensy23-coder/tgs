@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/mametyev/tgs/internal/config"
+	"github.com/freQuensy23-coder/tgs/internal/config"
 )
 
 const (

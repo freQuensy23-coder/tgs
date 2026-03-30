@@ -6,9 +6,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/mametyev/tgs/internal/archive"
-	"github.com/mametyev/tgs/internal/config"
-	"github.com/mametyev/tgs/internal/sender"
+	"github.com/freQuensy23-coder/tgs/internal/archive"
+	"github.com/freQuensy23-coder/tgs/internal/config"
+	"github.com/freQuensy23-coder/tgs/internal/sender"
 )
 
 func cmdSend(ctx context.Context, targetName string, path string) error {

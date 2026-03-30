@@ -1,4 +1,4 @@
-module github.com/mametyev/tgs
+module github.com/freQuensy23-coder/tgs
 
 go 1.26.1
 
